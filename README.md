@@ -1,45 +1,53 @@
-# 🔭 Planet X and SPHEREx — NASA Space Apps Challenge 2026
+<div align="center">
 
-An automated astronomical data retrieval, WCS sky-alignment, and multi-epoch transient detection pipeline built using **NASA's SPHEREx Data Release 1 (DR1)** archive via IRSA.
+# 🔭 SPHEREx Explorer: Multi-Epoch Infrared Transient & Planet X Detection
+**NASA Space Apps Challenge 2026 — Official Project Repository**
+
+[![NASA Data](https://img.shields.io/badge/NASA_Data-IRSA_SPHEREx_DR1%2FQR3-0B3D91?style=for-the-badge&logo=nasa&logoColor=white)](https://irsa.ipac.caltech.edu/)
+[![Live Demo](https://img.shields.io/badge/Live_App-Streamlit_Explorer-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://planet-x-spherex-nasa-2026-izwfjnhtocqxenbumylolr.streamlit.app)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Astropy](https://img.shields.io/badge/Astronomy-Astropy_%7C_Reproject-orange?style=for-the-badge)](https://www.astropy.org/)
+
+*An automated astronomical data retrieval, World Coordinate System (WCS) sky-alignment, and interactive multi-epoch flux differencing system designed to isolate moving celestial objects and Planet X candidates.*
+
+[🚀 Launch Live Web App](https://planet-x-spherex-nasa-2026-izwfjnhtocqxenbumylolr.streamlit.app) · [📓 View Data Pipeline Notebook](./SPHEREx_Data_Collection.ipynb) · [📊 Inspect Metadata](./spherex_metadata.csv)
+
+</div>
 
 ---
 
-## 📌 Project Overview
-The search for distant solar system objects, asteroids, and moving transients requires comparing astronomical observations taken months or years apart. To achieve this, our system analyzes multi-epoch infrared observations of the exact same sky region separated by **~407 days** (`2025-04-29` vs `2026-06-10` in the `SPHEREx-D1` spectral band).
+## 🎯 Executive Summary
+
+Detecting distant, faint, and slow-moving solar system bodies (such as trans-Neptunian objects, asteroids, comets, and hypothetical **Planet X** candidates) requires comparing deep-sky observations separated by significant time intervals. 
+
+**SPHEREx Explorer** automates this entire astrophysical workflow end-to-end:
+1. Connects directly to **NASA/Caltech's Infrared Science Archive (IRSA)** to retrieve real calibrated Level-2 observations from the **SPHEREx** mission.
+2. Aligns multi-epoch observations separated by **~407 days** (`2025-04-29` vs. `2026-06-10` in the `SPHEREx-D1` spectral band) onto a unified celestial pixel grid using **WCS reprojection**.
+3. Performs multi-epoch image differencing so stationary background stars cancel out while moving objects stand out clearly, served through an interactive **Streamlit Web Application**.
 
 ---
 
-## ⚡ Key Features
-* **Automated NASA Data Extraction:** Queries NASA/Caltech IRSA SIA2 TAP services directly using Python (`astroquery`).
-* **Astronomical Preprocessing:** Cleans detector artifacts (`NaN` values via median imputation) and applies `ZScale` intensity normalization to reveal faint celestial sources.
-* **Precise WCS Sky Alignment:** Uses astronomical World Coordinate System (WCS) headers to reproject Epoch 2 onto Epoch 1's exact pixel grid (`reproject_interp`), ensuring stationary background stars cancel out cleanly during subtraction.
-* **Transient & Motion Detection:** Generates difference maps to isolate moving objects from static background stars.
-
----
-
-## 🛠️ Technical Architecture & Workflow
+## 🏗️ End-to-End System Architecture
 
 ```text
- ┌─────────────────────────────┐
- │  NASA IRSA SPHEREx Archive  │  (Data Release 1 / QR3 via SIA2)
- └──────────────┬──────────────┘
-                │ Query by RA, Dec & Band (SPHEREx-D1)
-                ▼
- ┌─────────────────────────────┐
- │  Multi-Epoch FITS Retrieval │  (~407 Days Baseline: Apr 2025 vs Jun 2026)
- └──────────────┬──────────────┘
-                │ Parse ImageHDU (2040 x 2040 pixels)
-                ▼
- ┌─────────────────────────────┐
- │   Data Cleaning & Scaling   │  (NaN Imputation & ZScale Normalization)
- └──────────────┬──────────────┘
-                │ WCS Header Extraction
-                ▼
- ┌─────────────────────────────┐
- │    WCS Sky Reprojection     │  (Aligns Epoch 2 to Epoch 1 Pixel Grid)
- └──────────────┬──────────────┘
-                │ Flux Differencing (Epoch 2 - Epoch 1)
-                ▼
- ┌─────────────────────────────┐
- │   Transient / Motion Map    │  (Isolates Moving Objects & Asteroids)
- └─────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 1. DATA INGESTION (NASA / Caltech IRSA SIA2 TAP Service)                 │
+│    • Queries SPHEREx DR1 / QR3 catalog by celestial coordinates (RA/Dec) │
+│    • Filters Level-2 calibrated FITS exposures in SPHEREx-D1 band        │
+└────────────────────────────────────┬─────────────────────────────────────┘
+                                     │
+                                     ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 2. ASTROPHYSICAL PREPROCESSING & WCS SKY ALIGNMENT                       │
+│    • Parses primary ImageHDU arrays (2040 × 2040 pixels, float32)        │
+│    • Imputes detector NaN artifacts & applies ZScale intensity scaling   │
+│    • Reprojects Epoch 2 onto Epoch 1 WCS grid (astropy.wcs + reproject)  │
+└────────────────────────────────────┬─────────────────────────────────────┘
+                                     │
+                                     ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│ 3. MULTI-EPOCH DIFFERENCING & INTERACTIVE EXPLORATION (Streamlit App)    │
+│    • Computes residual flux map (Epoch 2 − Epoch 1) to isolate motion    │
+│    • Exports standardized .npy arrays, metadata audit CSV & visual maps  │
+│    • Renders live interactive dashboard for researchers & judges         │
+└──────────────────────────────────────────────────────────────────────────┘
