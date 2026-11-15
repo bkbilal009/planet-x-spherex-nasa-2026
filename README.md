@@ -1,6 +1,6 @@
 <div align="center">
 
-<!-- Animated / Sleek Space Header Banner -->
+<!-- Space Header Banner -->
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0B0F19,50:0B3D91,100:1E293B&height=210&section=header&text=🔭%20SPHEREx%20Explorer&fontSize=46&fontColor=FFFFFF&fontAlignY=38&desc=Multi-Epoch%20Infrared%20Transient%20%26%20Planet%20X%20Detection%20Pipeline&descSize=17&descAlignY=62&descColor=93C5FD" width="100%" />
 
 <p align="center">
@@ -77,7 +77,7 @@ Searching for faint, slow-moving outer solar system objects—such as Trans-Nept
 
 <div align="center">
   <a href="https://spherex-explorer-2026.streamlit.app/">
-    <img src="./aligned_difference_preview.png" alt="SPHEREx Aligned Difference Map" width="88%" style="border-radius: 12px; border: 1px solid #30363d;" />
+    <img src="https://raw.githubusercontent.com/bkbilal009/planet-x-spherex-nasa-2026/main/aligned_difference_preview.png" alt="SPHEREx Aligned Difference Map" width="88%" style="border-radius: 12px; border: 1px solid #30363d;" />
   </a>
   <br/>
   <sub><em>Figure 1: Multi-epoch WCS-aligned flux difference preview (<code>Epoch 2 − Epoch 1</code>). Stationary stars cancel out while residual infrared variations stand out.</em></sub>
@@ -88,7 +88,7 @@ Searching for faint, slow-moving outer solar system objects—such as Trans-Nept
 | Resource | Direct Access Link | Description |
 | :--- | :--- | :--- |
 | **🌐 Interactive Web App** | [**spherex-explorer-2026.streamlit.app**](https://spherex-explorer-2026.streamlit.app/) | Explore aligned observation metadata & difference imagery live in browser |
-| **🎬 Video Walkthrough** | [**Watch Demo on Google Drive**](https://drive.google.com/file/d/1yeZU9GpD0aRBDXzyLciH6QACtieWdK2d/view?usp=drivesdk) | End-to-end demonstration of our pipeline, alignment, and UI |
+| **🎬 Video Walkthrough** | [**Watch Demo on Google Drive**](https://drive.github.com/file/d/1yeZU9GpD0aRBDXzyLciH6QACtieWdK2d/view?usp=drivesdk) | End-to-end demonstration of our pipeline, alignment, and UI |
 | **📓 Colab Notebook** | [**`SPHEREx_Data_Collection.ipynb`**](./SPHEREx_Data_Collection.ipynb) | Complete reproducible Python pipeline for IRSA data querying & alignment |
 
 ---
